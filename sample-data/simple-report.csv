@@ -1,0 +1,6 @@
+date,description,amount,category,invoice_reference
+2025-03-01,Office chair,249.99,equipment,INV-2025-001
+2025-03-03,Team lunch,42.50,meals,
+2025-03-05,Flight to NYC,389.00,travel,INV-2025-002
+2025-03-10,Notion subscription,8.00,software,
+2025-03-12,Python training course,150.00,training,INV-2025-003

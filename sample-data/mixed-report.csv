@@ -1,0 +1,9 @@
+date,description,amount,category,invoice_reference
+2025-03-01,Client dinner,125.00,meals,INV-2025-010
+2025-03-02,Uber to airport,32.00,travel,
+2025-03-04,Standing desk,599.99,equipment,
+2025-03-05,Team coffee,18.75,meals,
+2025-03-07,Adobe license,54.99,software,INV-2025-011
+2025-03-08,Conference tickets,800.00,conferences,INV-2025-012
+2025-03-10,Printer paper,24.50,office_supplies,
+2025-03-15,Ergonomic keyboard,-45.00,equipment,INV-2025-013

@@ -1,0 +1,16 @@
+services:
+  api-server:
+    build: ./api-server
+    ports:
+      - "8080:8080"
+
+  agent:
+    build: ./agent
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - API_SERVER_URL=http://api-server:8080
+    volumes:
+      - ./drop-zone:/app/drop-zone
+      - ./output:/app/output
+    depends_on:
+      - api-server

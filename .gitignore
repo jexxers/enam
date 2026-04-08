@@ -1,0 +1,5 @@
+.env
+drop-zone/*.csv
+output/*.md
+*.zip
+.claude/

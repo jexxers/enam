@@ -1,0 +1,11 @@
+  date,  description,amount,category,invoice_reference
+03/15/2025,  Team building lunch  , 89.50, Meals ,INV-2025-020
+2025-03-16,Taxi to client site,45.00,   travel,
+ March 17 2025,Laptop stand from Amazon,129.99,equip,INV-2025-021
+2025/03/18,Annual Figma license,150.00,sw,INV-2025-022
+2025-03-19,,75.00,office_supplies,INV-2025-023
+03-20-2025,Team offsite dinner ,  $62.50,meals,INV-2025-024
+2025-03-21,Udemy course: Advanced Python,  199.00 ,Training,INV-2025-025
+2025.03.22,Office snacks and drinks,  28.00,other,
+2025-03-23,  Monitor stand + USB hub, 84.99 ,Office Supplies,
+20250324,Flight to Boston for QBR,450.00,TRAVEL,INV-2025-026
