@@ -101,8 +101,87 @@ def build_tools_server(*, api_server_url: str) -> Any:
         (out_dir / filename).write_text(content, encoding="utf-8")
         return {"content": [{"type": "text", "text": f"Wrote /app/output/{filename}"}]}
 
+    @tool(
+        "sum_expenses",
+        "Sum expense amounts from a list of expense-like objects. Accepts amounts as numbers or strings.",
+        {
+            "type": "object",
+            "properties": {
+                "expenses": {
+                    "type": "array",
+                    "description": "List of expense-like objects with an 'amount' field.",
+                    "items": {"type": "object"},
+                }
+            },
+            "required": ["expenses"],
+        },
+    )
+    async def sum_expenses(args: dict[str, Any]) -> dict[str, Any]:
+        expenses = args.get("expenses") or []
+        if not isinstance(expenses, list):
+            return {
+                "content": [
+                    {
+                        "type": "text",
+                        "text": json.dumps(
+                            {
+                                "error": "expenses must be a list",
+                                "total": 0.0,
+                                "count_included": 0,
+                                "count_skipped": 0,
+                            }
+                        ),
+                    }
+                ]
+            }
+
+        total = 0.0
+        included = 0
+        skipped = 0
+
+        for item in expenses:
+            if not isinstance(item, dict):
+                skipped += 1
+                continue
+
+            raw_amt = item.get("amount")
+            amt: float | None
+
+            if raw_amt is None:
+                amt = None
+            elif isinstance(raw_amt, (int, float)) and not isinstance(raw_amt, bool):
+                amt = float(raw_amt)
+            elif isinstance(raw_amt, str):
+                amt = parse_amount(raw_amt)
+            else:
+                # Try stringifying unknown scalar types (e.g. Decimal).
+                try:
+                    amt = parse_amount(str(raw_amt))
+                except Exception:
+                    amt = None
+
+            if amt is None:
+                skipped += 1
+                continue
+
+            total += amt
+            included += 1
+
+        payload = {
+            "total": total,
+            "count_included": included,
+            "count_skipped": skipped,
+        }
+        return {"content": [{"type": "text", "text": json.dumps(payload)}]}
+
     return create_sdk_mcp_server(
         name="expense-tools",
         version="1.0.0",
-        tools=[read_expense_csv, expense_api, write_markdown_report],
+        tools=[
+            read_expense_csv,
+            expense_api,
+            get_categories,
+            write_markdown_report,
+            sum_expenses,
+        ],
     )

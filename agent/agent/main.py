@@ -37,6 +37,7 @@ def main() -> None:
                 "mcp__expense_tools__read_expense_csv",
                 "mcp__expense_tools__expense_api",
                 "mcp__expense_tools__write_markdown_report",
+                "mcp__expense_tools__sum_expenses",
             ],
             system_prompt="""
 You are an expense report processing agent.
@@ -47,6 +48,8 @@ For each CSV file I provide, you must:
   category (exact match from allowed_categories), invoice_reference (string or empty).
 - Prefer the deterministic_normalized values when present; only deviate when needs_llm is true or values are clearly wrong.
 - Call the validation API tool ONCE per expense.
+- After you have validated all expenses, compute `Total Approved Amount` by calling the `sum_expenses` tool
+  with the list of APPROVED expenses (each must include an `amount` field). Use the returned `total` as $<amount>.
 - Produce a Markdown report matching this exact structure:
   # Expense Report: <source.csv>
   
