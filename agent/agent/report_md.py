@@ -49,7 +49,7 @@ def render_report_markdown(*, source_filename: str, rows: list[ReportRow]) -> st
         status = "-"
         if r.validation:
             status = "Approved" if r.validation.status == "approved" else "Rejected"
-        invoice = exp.invoice_reference or "-"
+        invoice = "-" if exp.invoice_reference is None or exp.invoice_reference == "" else exp.invoice_reference
         lines.append(
             f"| {r.index} | {exp.date} | {exp.description} | {_money(exp.amount)} | {exp.category} | {invoice} | {status} |"
         )

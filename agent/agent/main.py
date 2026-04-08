@@ -85,10 +85,11 @@ Do not skip expenses.
             out_filename = f"{csv_path.stem}-report.md"
             processed_ts = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
             prompt = (
-                f"Process the CSV at path: {csv_path}\n"
-                f"Write report filename: {out_filename}\n"
-                f"Processed timestamp (use exactly this): {processed_ts}\n"
-                "Important: the report title must be `# Expense Report: <source filename>`.\n"
+                f"""Process the CSV at path: {csv_path}
+Write report filename: {out_filename}
+Processed timestamp (use exactly this): {processed_ts}
+Important: the report title must be `# Expense Report: <source filename>`.
+"""
             )
             logger.info(
                 "processing file", extra={"file": str(csv_path), "out": out_filename}
